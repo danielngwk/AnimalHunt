@@ -2,6 +2,7 @@ package com.example.a16022653.animalhunt;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
         btnCon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setContentView(R.layout.activity_maps);
+                Intent  i = new Intent(MainActivity.this,MapsActivity.class);
+                startActivity(i);
             }
         });
     }
@@ -40,8 +42,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
+        Intent  intent = new Intent(MainActivity.this,MapsActivity.class);
+
         Bitmap bitmap = (Bitmap)data.getExtras().get("data");
         ImageView iv = (ImageView) findViewById(R.id.imageView);
         iv.setImageBitmap(bitmap);
+        Bundle extras = new Bundle();
+        extras.putParcelable("imagebitmap", (Parcelable) iv);
+        intent.putExtras(extras);
+        startActivity(intent);
     }
 }
